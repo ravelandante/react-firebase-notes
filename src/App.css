@@ -1,3 +1,7 @@
+.notes-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+}
 
 .note {
 	height: 18.75rem;

@@ -10,6 +10,24 @@ function App() {
 			<div>
 			</div>
 
+
+function NotesList({ notes }) {
+	const [maxZIndex, setMaxZIndex] = useState(1);
+
+	return (
+		<div className="notes-list">
+			{notes.map((note) => (
+				<Note
+					key={note.id}
+					title={note.title}
+					maxZIndex={maxZIndex}
+					setMaxZIndex={setMaxZIndex}
+				/>
+			))}
+		</div>
+	);
+}
+
 function Note({ title, maxZIndex, setMaxZIndex }) {
 	const [zIndex, setZIndex] = useState(0);
 	const [shouldAnimate, setShouldAnimate] = useState(false);
