@@ -8,17 +8,25 @@ import { useState } from "react";
 import "./App.css";
 import NotesList from "./components/NotesList";
 
-const notesList = [];
-
 function App() {
-	const [notes, setNotes] = useState(notesList);
+	const [notes, setNotes] = useState([]);
+	const [signedInUser, setSignedInUser] = useState(null);
+
+	const getSavedNotes = async (userId) => {
+		const q = query(collection(db, "notes"), where("userid", "==", userId));
+		const querySnapshot = await getDocs(q);
+		querySnapshot.forEach((doc) => {
+			setNotes((prevNotes) => [...prevNotes, { id: doc.id, ...doc.data() }]);
+		});
+	};
 
 	const googleSignIn = () => {
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
-				console.log(user.displayName);
+				setSignedInUser(user);
+				getSavedNotes(user.uid);
 			} else {
-				console.log("No user");
+				setSignedInUser(null);
 			}
 		});
 
