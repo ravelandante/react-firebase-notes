@@ -2,12 +2,52 @@ import { useState } from "react";
 import { useRef } from "react";
 
 import "./App.css";
+import Draggable from "react-draggable";
 import { BsPencilFill } from "react-icons/bs";
 function App() {
 	return (
 		<>
 			<div>
 			</div>
+
+function Note({ title, maxZIndex, setMaxZIndex }) {
+	const [zIndex, setZIndex] = useState(0);
+	const [shouldAnimate, setShouldAnimate] = useState(false);
+	const [readOnly, setReadOnly] = useState(true);
+
+	const onStart = () => {
+		if (zIndex !== maxZIndex) {
+			const newZIndex = maxZIndex + 1;
+			setZIndex(newZIndex);
+			setMaxZIndex(newZIndex);
+		}
+		setShouldAnimate(true);
+	};
+
+	const onStop = () => {
+		setShouldAnimate(false);
+	};
+
+	const nodeRef = useRef(null);
+	return (
+		<Draggable
+			cancel={["input", "button", readOnly ? "NULL" : "textarea"]}
+			//bounds="body"
+			onStop={onStop}
+			onStart={onStart}
+			nodeRef={nodeRef}
+		>
+			<div
+				className={["note", shouldAnimate ? "animate" : ""]}
+				style={{ zIndex: zIndex }}
+				ref={nodeRef}
+			>
+				<NoteTitle title={title} />
+				<NoteContent readOnly={readOnly} setReadOnly={setReadOnly} />
+			</div>
+		</Draggable>
+	);
+}
 
 function NoteTitle({ title }) {
 	const [noteTitle, setNoteTitle] = useState(title);
