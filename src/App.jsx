@@ -4,12 +4,29 @@ import { useRef } from "react";
 import "./App.css";
 import Draggable from "react-draggable";
 import { BsPencilFill } from "react-icons/bs";
+
+const notesList = [];
+
 function App() {
+	const [notes, setNotes] = useState(notesList);
+
+	const createNote = () => {
+		const incrementedId = (notes.at(-1)?.id ?? 0) + 1;
+		setNotes([...notes, { id: incrementedId, title: "New note" }]);
+	};
+
 	return (
 		<>
 			<div>
+				<button onClick={createNote}>Add new note</button>
+			</div>
+			<div>
+				<NotesList notes={notes} />
 			</div>
 
+		</>
+	);
+}
 
 function NotesList({ notes }) {
 	const [maxZIndex, setMaxZIndex] = useState(1);
