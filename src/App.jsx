@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRef } from "react";
 
 import "./App.css";
+import { BsPencilFill } from "react-icons/bs";
 function App() {
 	return (
 		<>
@@ -29,6 +30,17 @@ function NoteTitle({ title }) {
 		></input>
 	);
 }
+
+function NoteContent({ readOnly, setReadOnly }) {
+	return (
+		<>
+			<textarea
+				className={`note-content ${readOnly ? "" : "note-content-editable"}`}
+				readOnly={readOnly}
+			></textarea>
+			<button className="edit-btn" onClick={() => setReadOnly(!readOnly)}>
+				<BsPencilFill />
+			</button>
 		</>
 	);
 }

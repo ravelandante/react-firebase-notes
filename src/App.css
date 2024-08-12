@@ -9,7 +9,39 @@
 	cursor: default;
 }
 
+
+.note-content {
+	height: 90%;
+	width: 96%;
+	margin: 0 auto;
+	font-size: 15px;
+	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+	overflow: hidden;
+	resize: none;
+	border: none;
+	cursor: default;
+	border-radius: 1%;
+}
+
+.note-content-editable {
+	background-color: rgba(205, 205, 205, 0.4);
+	cursor: text;
+}
+
 input:focus {
 	outline: none;
 	cursor: text;
+}
+
+textarea:focus {
+	outline: none;
+}
+
+.edit-btn {
+	position: absolute;
+	bottom: 0.2rem;
+	right: 0.2rem;
+	background-color: rgba(255, 255, 255, 0);
+	border: none;
+	margin: 0.2rem;
 }
