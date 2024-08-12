@@ -18,4 +18,5 @@ const firebaseConfig = {
 // initialise firebase
 const app = initializeApp(firebaseConfig);
 
+export const auth = getAuth(app);
 export default app;
