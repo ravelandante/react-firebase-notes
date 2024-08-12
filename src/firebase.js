@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 
 import { getAuth } from "firebase/auth";
-import {} from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 
 // "Usually, you need to fastidiously guard API keys (for example, by using a vault service or setting the keys as environment variables);
 // however, API keys for Firebase services are OK to include in code or checked-in config files."
@@ -19,4 +19,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
+export const db = getFirestore(app);
 export default app;

@@ -1,5 +1,7 @@
 import { GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
+import { db } from "./firebase";
 
 import { useState } from "react";
 
@@ -25,9 +27,19 @@ function App() {
 		signInWithPopup(auth, provider);
 	};
 
-	const createNote = () => {
+	const createNote = async () => {
 		const incrementedId = (notes.at(-1)?.id ?? 0) + 1;
 		setNotes([...notes, { id: incrementedId, title: "New note" }]);
+
+		try {
+			const docRef = await addDoc(collection(db, "notes"), {
+				title: "New note",
+				content: "",
+				userid: signedInUser.uid,
+			});
+		} catch (e) {
+			console.error("Error adding document: ", e);
+		}
 	};
 
 	return (
