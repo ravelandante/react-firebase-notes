@@ -3,7 +3,9 @@ import { useRef } from "react";
 
 import "../App.css";
 import Draggable from "react-draggable";
+
 import { BsPencilFill } from "react-icons/bs";
+import { BsFillTrashFill } from "react-icons/bs";
 
 function Note({ title, id, maxZIndex, setMaxZIndex, removeNote }) {
 	const [zIndex, setZIndex] = useState(0);
@@ -80,6 +82,9 @@ function NoteContent({ readOnly, setReadOnly, id, removeNote }) {
 			></textarea>
 			<button className="edit-btn" onClick={() => setReadOnly(!readOnly)}>
 				<BsPencilFill />
+			</button>
+			<button className="del-btn" onClick={() => removeNote(id)}>
+				<BsFillTrashFill />
 			</button>
 		</>
 	);

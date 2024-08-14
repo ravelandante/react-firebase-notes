@@ -72,3 +72,12 @@ textarea:focus {
 	border: none;
 	margin: 0.2rem;
 }
+
+.del-btn {
+	position: absolute;
+	bottom: 0.2rem;
+	left: 0.2rem;
+	background-color: rgba(255, 255, 255, 0);
+	border: none;
+	margin: 0.2rem;
+}
