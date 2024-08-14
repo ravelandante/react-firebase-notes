@@ -47,7 +47,7 @@ function App() {
 						<button onClick={addNote}>Add new note</button>
 					</div>
 					<div>
-						<NotesList notes={notes} />
+						<NotesList notes={notes} setNotes={setNotes} />
 					</div>
 				</>
 			)}

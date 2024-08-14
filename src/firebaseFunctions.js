@@ -21,3 +21,11 @@ export const createNote = async (title, userid) => {
 		console.error("Error adding document: ", e);
 	}
 };
+
+export const removeDoc = async (docId) => {
+	try {
+		await deleteDoc(doc(db, "notes", docId));
+	} catch (e) {
+		console.error("Error deleting document: ", e);
+	}
+};

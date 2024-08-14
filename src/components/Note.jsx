@@ -5,7 +5,7 @@ import "../App.css";
 import Draggable from "react-draggable";
 import { BsPencilFill } from "react-icons/bs";
 
-function Note({ title, maxZIndex, setMaxZIndex }) {
+function Note({ title, id, maxZIndex, setMaxZIndex, removeNote }) {
 	const [zIndex, setZIndex] = useState(0);
 	const [shouldAnimate, setShouldAnimate] = useState(false);
 	const [readOnly, setReadOnly] = useState(true);
@@ -38,7 +38,12 @@ function Note({ title, maxZIndex, setMaxZIndex }) {
 				ref={nodeRef}
 			>
 				<NoteTitle title={title} />
-				<NoteContent readOnly={readOnly} setReadOnly={setReadOnly} />
+				<NoteContent
+					readOnly={readOnly}
+					setReadOnly={setReadOnly}
+					id={id}
+					removeNote={removeNote}
+				/>
 			</div>
 		</Draggable>
 	);
@@ -66,7 +71,7 @@ function NoteTitle({ title }) {
 	);
 }
 
-function NoteContent({ readOnly, setReadOnly }) {
+function NoteContent({ readOnly, setReadOnly, id, removeNote }) {
 	return (
 		<>
 			<textarea
