@@ -7,7 +7,7 @@ import Draggable from "react-draggable";
 import { BsPencilFill } from "react-icons/bs";
 import { BsFillTrashFill } from "react-icons/bs";
 
-function Note({ title, id, maxZIndex, setMaxZIndex, removeNote }) {
+function Note({ title, content, id, maxZIndex, setMaxZIndex, removeNote, setNoteTitle, setNoteContent }) {
 	const [zIndex, setZIndex] = useState(0);
 	const [shouldAnimate, setShouldAnimate] = useState(false);
 	const [readOnly, setReadOnly] = useState(true);
@@ -39,20 +39,21 @@ function Note({ title, id, maxZIndex, setMaxZIndex, removeNote }) {
 				style={{ zIndex: zIndex }}
 				ref={nodeRef}
 			>
-				<NoteTitle title={title} />
+				<NoteTitle title={title} setNoteTitle={setNoteTitle} id={id} />
 				<NoteContent
+					content={content}
 					readOnly={readOnly}
 					setReadOnly={setReadOnly}
 					id={id}
 					removeNote={removeNote}
+					setNoteContent={setNoteContent}
 				/>
 			</div>
 		</Draggable>
 	);
 }
 
-function NoteTitle({ title }) {
-	const [noteTitle, setNoteTitle] = useState(title);
+function NoteTitle({ title, setNoteTitle, id }) {
 	const inputRef = useRef(null);
 
 	const handleBlur = () => {
@@ -64,8 +65,8 @@ function NoteTitle({ title }) {
 	return (
 		<input
 			className="title-input"
-			value={noteTitle}
-			onChange={(e) => setNoteTitle(e.target.value)}
+			value={title}
+			onChange={(e) => setNoteTitle(id, e.target.value)}
 			maxLength={42}
 			onBlur={handleBlur}
 			ref={inputRef}
@@ -73,12 +74,14 @@ function NoteTitle({ title }) {
 	);
 }
 
-function NoteContent({ readOnly, setReadOnly, id, removeNote }) {
+function NoteContent({ content, readOnly, setReadOnly, id, removeNote, setNoteContent }) {
 	return (
 		<>
 			<textarea
 				className={`note-content ${readOnly ? "" : "note-content-editable"}`}
 				readOnly={readOnly}
+				value={content}
+				onChange={(e) => setNoteContent(id, e.target.value)}
 			></textarea>
 			<button className="edit-btn" onClick={() => setReadOnly(!readOnly)}>
 				<BsPencilFill />
