@@ -7,7 +7,7 @@ import Draggable from "react-draggable";
 import { BsPencilFill } from "react-icons/bs";
 import { BsFillTrashFill } from "react-icons/bs";
 
-function Note({ title, content, id, maxZIndex, setMaxZIndex, removeNote, setNoteTitle, setNoteContent }) {
+function Note({ title, content, id, maxZIndex, setMaxZIndex, deleteNote, setNoteTitle, setNoteContent }) {
 	const [zIndex, setZIndex] = useState(0);
 	const [shouldAnimate, setShouldAnimate] = useState(false);
 	const [readOnly, setReadOnly] = useState(true);
@@ -45,7 +45,7 @@ function Note({ title, content, id, maxZIndex, setMaxZIndex, removeNote, setNote
 					readOnly={readOnly}
 					setReadOnly={setReadOnly}
 					id={id}
-					removeNote={removeNote}
+					deleteNote={deleteNote}
 					setNoteContent={setNoteContent}
 				/>
 			</div>
@@ -74,7 +74,7 @@ function NoteTitle({ title, setNoteTitle, id }) {
 	);
 }
 
-function NoteContent({ content, readOnly, setReadOnly, id, removeNote, setNoteContent }) {
+function NoteContent({ content, readOnly, setReadOnly, id, deleteNote, setNoteContent }) {
 	return (
 		<>
 			<textarea
@@ -86,7 +86,7 @@ function NoteContent({ content, readOnly, setReadOnly, id, removeNote, setNoteCo
 			<button className="edit-btn" onClick={() => setReadOnly((prevReadOnly) => !prevReadOnly)}>
 				<BsPencilFill />
 			</button>
-			<button className="del-btn" onClick={() => removeNote(id)}>
+			<button className="del-btn" onClick={() => deleteNote(id)}>
 				<BsFillTrashFill />
 			</button>
 		</>

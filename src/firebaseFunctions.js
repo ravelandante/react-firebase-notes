@@ -22,7 +22,7 @@ export const createNote = async (title, content, userid) => {
 	}
 };
 
-export const removeDoc = async (docId) => {
+export const deleteNote = async (docId) => {
 	try {
 		await deleteDoc(doc(db, "notes", docId));
 	} catch (e) {

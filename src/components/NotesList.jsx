@@ -1,13 +1,13 @@
 import { useState } from "react";
 import "../App.css";
 import Note from "./Note";
-import { removeDoc } from "../firebaseFunctions";
+import { deleteNote } from "../firebaseFunctions";
 
 function NotesList({ notes, setNotes }) {
 	const [maxZIndex, setMaxZIndex] = useState(1);
 
-	const removeNote = async (id) => {
-		await removeDoc(id);
+	const deleteNoteFromLocalAndStore = async (id) => {
+		await deleteNote(id);
 		setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
 	};
 
@@ -43,7 +43,7 @@ function NotesList({ notes, setNotes }) {
 					content={note.content}
 					maxZIndex={maxZIndex}
 					setMaxZIndex={setMaxZIndex}
-					removeNote={removeNote}
+					deleteNote={deleteNoteFromLocalAndStore}
 					setNoteTitle={setNoteTitle}
 					setNoteContent={setNoteContent}
 				/>
