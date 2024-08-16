@@ -83,7 +83,7 @@ function NoteContent({ content, readOnly, setReadOnly, id, removeNote, setNoteCo
 				value={content}
 				onChange={(e) => setNoteContent(id, e.target.value)}
 			></textarea>
-			<button className="edit-btn" onClick={() => setReadOnly(!readOnly)}>
+			<button className="edit-btn" onClick={() => setReadOnly((prevReadOnly) => !prevReadOnly)}>
 				<BsPencilFill />
 			</button>
 			<button className="del-btn" onClick={() => removeNote(id)}>
