@@ -35,8 +35,9 @@ function App() {
 
 	const addNote = async () => {
 		const title = "New note";
-		const newDoc = await createNote(title, signedInUser.uid);
-		setNotes([...notes, { id: newDoc.id, title: title }]);
+		const content = "";
+		const newDoc = await createNote(title, content, signedInUser.uid);
+		setNotes([...notes, { id: newDoc.id, title: title, content: content }]);
 	};
 
 	return (

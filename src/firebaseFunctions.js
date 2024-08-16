@@ -10,11 +10,11 @@ export const getSavedNotes = async (userId) => {
 	}
 };
 
-export const createNote = async (title, userid) => {
+export const createNote = async (title, content, userid) => {
 	try {
 		return await addDoc(collection(db, "notes"), {
 			title: title,
-			content: "",
+			content: content,
 			userid: userid,
 		});
 	} catch (e) {
