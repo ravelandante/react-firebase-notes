@@ -1,10 +1,23 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "../App.css";
 import Note from "./Note";
-import { deleteNote } from "../firebaseFunctions";
+import { deleteNote, updateNote } from "../firebaseFunctions";
 
 function NotesList({ notes, setNotes }) {
 	const [maxZIndex, setMaxZIndex] = useState(1);
+	const updateTimeoutRef = useRef(null);
+
+	const debounceNoteUpdate = (id, newTitle, newContent) => {
+		// clear the previous timeout on user type
+		if (updateTimeoutRef.current) {
+			clearTimeout(updateTimeoutRef.current);
+		}
+
+		// set a new timeout
+		updateTimeoutRef.current = setTimeout(async () => {
+			await updateNote(id, newTitle, newContent);
+		}, 1000);
+	};
 
 	const deleteNoteFromLocalAndStore = async (id) => {
 		await deleteNote(id);
@@ -15,6 +28,7 @@ function NotesList({ notes, setNotes }) {
 		setNotes((prevNotes) =>
 			prevNotes.map((note) => {
 				if (note.id === id) {
+					debounceNoteUpdate(id, newTitle, note.content);
 					return { ...note, title: newTitle };
 				}
 				return note;
@@ -26,6 +40,7 @@ function NotesList({ notes, setNotes }) {
 		setNotes((prevNotes) =>
 			prevNotes.map((note) => {
 				if (note.id === id) {
+					debounceNoteUpdate(id, note.title, newContent);
 					return { ...note, content: newContent };
 				}
 				return note;
