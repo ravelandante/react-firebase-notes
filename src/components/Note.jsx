@@ -4,8 +4,7 @@ import { useRef } from "react";
 import "../App.css";
 import Draggable from "react-draggable";
 
-import { BsPencilFill } from "react-icons/bs";
-import { BsFillTrashFill } from "react-icons/bs";
+import { BsPencilFill, BsFillTrashFill, BsCheckSquareFill } from "react-icons/bs";
 
 function Note({ title, content, id, maxZIndex, setMaxZIndex, deleteNote, setNoteTitle, setNoteContent }) {
 	const [zIndex, setZIndex] = useState(0);
@@ -84,7 +83,7 @@ function NoteContent({ content, readOnly, setReadOnly, id, deleteNote, setNoteCo
 				onChange={(e) => setNoteContent(id, e.target.value)}
 			></textarea>
 			<button className="edit-btn" onClick={() => setReadOnly((prevReadOnly) => !prevReadOnly)}>
-				<BsPencilFill />
+				{readOnly ? <BsPencilFill /> : <BsCheckSquareFill />}
 			</button>
 			<button className="del-btn" onClick={() => deleteNote(id)}>
 				<BsFillTrashFill />
