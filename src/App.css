@@ -25,7 +25,7 @@
 	width: 97%;
 	margin: 0.2rem;
 	font-size: 18px;
-	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+	font-family: "Trebuchet MS", Arial, sans-serif;
 	border: none;
 	text-overflow: ellipsis;
 	cursor: default;
@@ -42,7 +42,8 @@
 	width: 96%;
 	margin: 0 auto;
 	font-size: 15px;
-	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-weight: 100;
 	overflow: hidden;
 	resize: none;
 	border: none;
