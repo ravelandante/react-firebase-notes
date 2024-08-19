@@ -34,7 +34,7 @@ function Note({ title, content, id, maxZIndex, setMaxZIndex, deleteNote, setNote
 			nodeRef={nodeRef}
 		>
 			<div
-				className={["note", shouldAnimate ? "animate" : ""]}
+				className={["note", shouldAnimate ? "animate-note" : ""]}
 				style={{ zIndex: zIndex }}
 				ref={nodeRef}
 			>
