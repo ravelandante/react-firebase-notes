@@ -7,7 +7,7 @@ function NotesList({ notes, setNotes }) {
 	const [maxZIndex, setMaxZIndex] = useState(1);
 	const updateTimeoutRef = useRef(null);
 
-	const debounceNoteUpdate = (id, newTitle, newContent) => {
+	const debounceNoteUpdate = (id, newTitle, newContent, x, y) => {
 		// clear the previous timeout on user type
 		if (updateTimeoutRef.current) {
 			clearTimeout(updateTimeoutRef.current);
@@ -15,7 +15,7 @@ function NotesList({ notes, setNotes }) {
 
 		// set a new timeout
 		updateTimeoutRef.current = setTimeout(async () => {
-			await updateNote(id, newTitle, newContent);
+			await updateNote(id, newTitle, newContent, x, y);
 		}, 1000);
 	};
 
@@ -28,7 +28,7 @@ function NotesList({ notes, setNotes }) {
 		setNotes((prevNotes) =>
 			prevNotes.map((note) => {
 				if (note.id === id) {
-					debounceNoteUpdate(id, newTitle, note.content);
+					debounceNoteUpdate(id, newTitle, note.content, note.x, note.y);
 					return { ...note, title: newTitle };
 				}
 				return note;
@@ -40,8 +40,20 @@ function NotesList({ notes, setNotes }) {
 		setNotes((prevNotes) =>
 			prevNotes.map((note) => {
 				if (note.id === id) {
-					debounceNoteUpdate(id, note.title, newContent);
+					debounceNoteUpdate(id, note.title, newContent, note.x, note.y);
 					return { ...note, content: newContent };
+				}
+				return note;
+			})
+		);
+	};
+
+	const setNotePosition = (id, x, y) => {
+		setNotes((prevNotes) =>
+			prevNotes.map((note) => {
+				if (note.id === id) {
+					debounceNoteUpdate(id, note.title, note.content, x, y);
+					return { ...note, x: x, y: y };
 				}
 				return note;
 			})
@@ -56,11 +68,13 @@ function NotesList({ notes, setNotes }) {
 					id={note.id}
 					title={note.title}
 					content={note.content}
+					position={{ x: note.x, y: note.y }}
 					maxZIndex={maxZIndex}
 					setMaxZIndex={setMaxZIndex}
 					deleteNote={deleteNoteFromLocalAndStore}
 					setNoteTitle={setNoteTitle}
 					setNoteContent={setNoteContent}
+					setNotePosition={setNotePosition}
 				/>
 			))}
 		</div>

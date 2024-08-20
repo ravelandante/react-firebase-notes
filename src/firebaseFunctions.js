@@ -12,23 +12,27 @@ export const getSavedNotes = async (userId) => {
 	}
 };
 
-export const createNote = async (title, content, userid) => {
+export const createNote = async (title, content, userid, x, y) => {
 	try {
 		return await addDoc(notesCollection, {
 			title: title,
 			content: content,
 			userid: userid,
+			x: x,
+			y: y,
 		});
 	} catch (e) {
 		console.error("Error adding document: ", e);
 	}
 };
 
-export const updateNote = async (docId, title, content) => {
+export const updateNote = async (docId, title, content, x, y) => {
 	try {
 		return await updateDoc(doc(db, "notes", docId), {
 			title: title,
 			content: content,
+			x: x,
+			y: y,
 		});
 	} catch (e) {
 		console.error("Error updating document: ", e);

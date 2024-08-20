@@ -6,7 +6,18 @@ import Draggable from "react-draggable";
 
 import { BsPencilFill, BsFillTrashFill, BsCheckSquareFill } from "react-icons/bs";
 
-function Note({ title, content, id, maxZIndex, setMaxZIndex, deleteNote, setNoteTitle, setNoteContent }) {
+function Note({
+	title,
+	content,
+	id,
+	position,
+	maxZIndex,
+	setMaxZIndex,
+	deleteNote,
+	setNoteTitle,
+	setNoteContent,
+	setNotePosition,
+}) {
 	const [zIndex, setZIndex] = useState(0);
 	const [shouldAnimate, setShouldAnimate] = useState(false);
 	const [readOnly, setReadOnly] = useState(true);
@@ -20,8 +31,9 @@ function Note({ title, content, id, maxZIndex, setMaxZIndex, deleteNote, setNote
 		setShouldAnimate(true);
 	};
 
-	const onStop = () => {
+	const onStop = (event, data) => {
 		setShouldAnimate(false);
+		setNotePosition(id, data.x, data.y);
 	};
 
 	const nodeRef = useRef(null);
@@ -32,6 +44,7 @@ function Note({ title, content, id, maxZIndex, setMaxZIndex, deleteNote, setNote
 			onStop={onStop}
 			onStart={onStart}
 			nodeRef={nodeRef}
+			defaultPosition={position}
 		>
 			<div
 				className={["note", shouldAnimate ? "animate-note" : ""]}
