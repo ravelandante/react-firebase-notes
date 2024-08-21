@@ -6,8 +6,7 @@ import Draggable from "react-draggable";
 
 import { BsPencilFill, BsFillTrashFill, BsCheckSquareFill } from "react-icons/bs";
 
-function Note({ title, content, id, position, maxZIndex, setMaxZIndex, deleteNote, updateNote }) {
-	const [zIndex, setZIndex] = useState(0);
+function Note({ title, content, id, position, zIndex, maxZIndex, setMaxZIndex, deleteNote, updateNote }) {
 	const [shouldAnimate, setShouldAnimate] = useState(false);
 	const [readOnly, setReadOnly] = useState(true);
 
@@ -17,7 +16,7 @@ function Note({ title, content, id, position, maxZIndex, setMaxZIndex, deleteNot
 	const onStart = () => {
 		if (zIndex !== maxZIndex) {
 			const newZIndex = maxZIndex + 1;
-			setZIndex(newZIndex);
+			updateNoteWithDebounce({ id: id, zIndex: newZIndex });
 			setMaxZIndex(newZIndex);
 		}
 		setShouldAnimate(true);

@@ -38,7 +38,9 @@ function App() {
 		const title = "New note";
 		const content = "";
 		const position = { x: 0, y: 0 };
-		const newDoc = await createNote(title, content, signedInUser.uid, position.x, position.y);
+		const zIndex = 0;
+		const newDoc = await createNote(title, content, signedInUser.uid, position.x, position.y, zIndex);
+
 		setNotes([
 			...notes,
 			{ id: newDoc.id, title: title, content: content, x: position.x, y: position.y },
