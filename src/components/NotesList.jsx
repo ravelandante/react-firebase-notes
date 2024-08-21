@@ -1,10 +1,9 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import "../App.css";
 import Note from "./Note";
 import { deleteNote, updateNote } from "../firebaseFunctions";
 
-function NotesList({ notes, setNotes }) {
-	const [maxZIndex, setMaxZIndex] = useState(1);
+function NotesList({ notes, setNotes, maxZIndex, setMaxZIndex }) {
 	const updateTimeoutRef = useRef(null);
 
 	const deleteNoteFromLocalAndStore = async (id) => {

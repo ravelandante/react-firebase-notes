@@ -11,11 +11,15 @@ import { getSavedNotes, createNote } from "./firebaseFunctions";
 function App() {
 	const [notes, setNotes] = useState([]);
 	const [signedInUser, setSignedInUser] = useState(null);
+	const [maxZIndex, setMaxZIndex] = useState(0);
 
 	const setSavedNotes = async (userId) => {
 		const savedNotes = await getSavedNotes(userId);
 		savedNotes.forEach((doc) => {
 			setNotes((prevNotes) => [...prevNotes, { id: doc.id, ...doc.data() }]);
+			setMaxZIndex((prevMaxZIndex) =>
+				prevMaxZIndex < doc.data().zIndex ? doc.data().zIndex : prevMaxZIndex
+			);
 		});
 	};
 
@@ -57,7 +61,12 @@ function App() {
 						</button>
 					</div>
 					<div>
-						<NotesList notes={notes} setNotes={setNotes} />
+						<NotesList
+							notes={notes}
+							setNotes={setNotes}
+							maxZIndex={maxZIndex}
+							setMaxZIndex={setMaxZIndex}
+						/>
 					</div>
 				</>
 			)}
