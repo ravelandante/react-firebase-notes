@@ -21,6 +21,7 @@ function NotesList({ notes, setNotes }) {
 
 	const deleteNoteFromLocalAndStore = async (id) => {
 		await deleteNote(id);
+		clearTimeout(updateTimeoutRef.current);
 		setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
 	};
 
