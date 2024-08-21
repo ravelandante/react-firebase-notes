@@ -6,21 +6,13 @@ import Draggable from "react-draggable";
 
 import { BsPencilFill, BsFillTrashFill, BsCheckSquareFill } from "react-icons/bs";
 
-function Note({
-	title,
-	content,
-	id,
-	position,
-	maxZIndex,
-	setMaxZIndex,
-	deleteNote,
-	setNoteTitle,
-	setNoteContent,
-	setNotePosition,
-}) {
+function Note({ title, content, id, position, maxZIndex, setMaxZIndex, deleteNote, updateNote }) {
 	const [zIndex, setZIndex] = useState(0);
 	const [shouldAnimate, setShouldAnimate] = useState(false);
 	const [readOnly, setReadOnly] = useState(true);
+
+	const updateTimeoutRef = useRef(null);
+	const updateNoteWithDebounce = updateNote(updateTimeoutRef);
 
 	const onStart = () => {
 		if (zIndex !== maxZIndex) {
@@ -33,7 +25,7 @@ function Note({
 
 	const onStop = (event, data) => {
 		setShouldAnimate(false);
-		setNotePosition(id, data.x, data.y);
+		updateNoteWithDebounce({ id: id, x: data.x, y: data.y });
 	};
 
 	const nodeRef = useRef(null);
@@ -51,21 +43,21 @@ function Note({
 				style={{ zIndex: zIndex }}
 				ref={nodeRef}
 			>
-				<NoteTitle title={title} setNoteTitle={setNoteTitle} id={id} />
+				<NoteTitle title={title} id={id} updateNoteWithDebounce={updateNoteWithDebounce} />
 				<NoteContent
 					content={content}
 					readOnly={readOnly}
 					setReadOnly={setReadOnly}
 					id={id}
 					deleteNote={deleteNote}
-					setNoteContent={setNoteContent}
+					updateNoteWithDebounce={updateNoteWithDebounce}
 				/>
 			</div>
 		</Draggable>
 	);
 }
 
-function NoteTitle({ title, setNoteTitle, id }) {
+function NoteTitle({ title, id, updateNoteWithDebounce }) {
 	const inputRef = useRef(null);
 
 	const handleBlur = () => {
@@ -78,7 +70,7 @@ function NoteTitle({ title, setNoteTitle, id }) {
 		<input
 			className="title-input"
 			value={title}
-			onChange={(e) => setNoteTitle(id, e.target.value)}
+			onChange={(e) => updateNoteWithDebounce({ id: id, title: e.target.value })}
 			maxLength={42}
 			onBlur={handleBlur}
 			ref={inputRef}
@@ -86,14 +78,14 @@ function NoteTitle({ title, setNoteTitle, id }) {
 	);
 }
 
-function NoteContent({ content, readOnly, setReadOnly, id, deleteNote, setNoteContent }) {
+function NoteContent({ content, readOnly, setReadOnly, id, deleteNote, updateNoteWithDebounce }) {
 	return (
 		<>
 			<textarea
 				className={`note-content ${readOnly ? "" : "note-content-editable"}`}
 				readOnly={readOnly}
 				value={content}
-				onChange={(e) => setNoteContent(id, e.target.value)}
+				onChange={(e) => updateNoteWithDebounce({ id: id, content: e.target.value })}
 			></textarea>
 			<button className="edit-btn" onClick={() => setReadOnly((prevReadOnly) => !prevReadOnly)}>
 				{readOnly ? <BsPencilFill /> : <BsCheckSquareFill />}
