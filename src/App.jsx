@@ -71,7 +71,11 @@ function App() {
 				</>
 			)}
 
-			{!signedInUser && <button onClick={googleSignIn}>Sign in with Google</button>}
+			{!signedInUser && (
+				<button onClick={googleSignIn} className="sign-in-btn">
+					Sign in with Google
+				</button>
+			)}
 		</>
 	);
 }
