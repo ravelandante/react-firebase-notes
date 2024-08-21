@@ -39,7 +39,7 @@ function Note({
 	const nodeRef = useRef(null);
 	return (
 		<Draggable
-			cancel={["input", "button", readOnly ? "NULL" : "textarea"]}
+			cancel={`input, button${readOnly ? "" : ", textarea"}`}
 			//bounds="body"
 			onStop={onStop}
 			onStart={onStart}
