@@ -2,10 +2,10 @@ import { GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "firebas
 import { auth } from "./firebase";
 
 import { useState } from "react";
-import { BsPlusLg } from "react-icons/bs";
 
 import "./App.css";
 import NotesList from "./components/NotesList";
+import { NewNoteIcon } from "./components/Icons";
 import { getSavedNotes, createNote } from "./firebaseFunctions";
 
 function App() {
@@ -57,7 +57,7 @@ function App() {
 				<>
 					<div>
 						<button onClick={addNote} className="add-btn">
-							<BsPlusLg size={60} />
+							<NewNoteIcon />
 						</button>
 					</div>
 					<div>
