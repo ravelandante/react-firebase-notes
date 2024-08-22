@@ -42,11 +42,9 @@
 	resize: none;
 	border: none;
 	cursor: default;
-	border-radius: 1%;
 }
 
 .note-content-editable {
-	background-color: rgba(205, 205, 205, 0.4);
 	cursor: text;
 }
 
