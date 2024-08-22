@@ -18,8 +18,8 @@
 	height: 1.4rem;
 	width: 97%;
 	margin: 0.2rem;
-	font-size: 18px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 24px;
+	font-family: "VT323", monospace;
 	border: none;
 	text-overflow: ellipsis;
 	cursor: default;
@@ -35,8 +35,8 @@
 	height: 90%;
 	width: 96%;
 	margin: 0 auto;
-	font-size: 15px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 21px;
+	font-family: "VT323", monospace;
 	font-weight: 100;
 	overflow: hidden;
 	resize: none;
@@ -117,8 +117,8 @@ textarea:focus {
 	top: 20%;
 	left: 50%;
 	padding: 0.4rem;
-	font-size: 15px;
-	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 21px;
+	font-family: "VT323", monospace;
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	border: 0.2rem solid;
